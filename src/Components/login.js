@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { auth } from "../firebase";
 import {
@@ -10,13 +10,16 @@ import {
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const loginUser = () => {
     signInWithEmailAndPassword(auth, email, password).then((user) => {});
+    navigate("/");
   };
 
   const signUpUser = () => {
     createUserWithEmailAndPassword(auth, email, password).then((user) => {});
+    navigate("/");
   };
 
   return (
@@ -37,12 +40,14 @@ export default function Login() {
         onChange={(e) => setPassword(e.target.value)}
       />
       <br />
-      <Link to="/" onClick={signUpUser}>
-        Signup
-      </Link>
-      <Link to="/" onClick={loginUser}>
+
+      <button type="button" onClick={signUpUser}>
+        Sign Up
+      </button>
+
+      <button type="button" onClick={loginUser}>
         Login
-      </Link>
+      </button>
     </div>
   );
 }
