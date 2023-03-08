@@ -1,10 +1,14 @@
 import "./App.css";
 import Post from "./Components/Posts";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { useState, useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { useState, useEffect, createContext } from "react";
 import logo from "./logo.png";
 import { auth } from "./firebase";
 import Login from "./Components/login";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Navbar from "./Components/Navbar";
+
+export const LoginInfo = createContext(null);
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -19,11 +23,6 @@ function App() {
     });
   }, []);
 
-  const logout = () => {
-    signOut(auth).then(() => {
-      setIsLoggedIn(false);
-    });
-  };
   return (
     <div className="App">
       <header className="App-header">
@@ -31,12 +30,32 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        {isLoggedIn ? (
+
+        <BrowserRouter>
+          <LoginInfo.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+            <Navbar />
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  isLoggedIn ? (
+                    <Post userLoggedIn={email} />
+                  ) : (
+                    <p>Welcome to my app</p>
+                  )
+                }
+              />
+              <Route path="/login" element={<Login />} />
+            </Routes>
+          </LoginInfo.Provider>
+        </BrowserRouter>
+
+        {/* {isLoggedIn ? (
           <button type="button" onClick={logout}>
             Logout
           </button>
         ) : null}
-        {isLoggedIn ? <Post userLoggedIn={email} /> : <Login />}
+        {isLoggedIn ? <Post userLoggedIn={email} /> : <Login />} */}
       </header>
     </div>
   );

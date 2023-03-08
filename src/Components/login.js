@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import { auth } from "../firebase";
 import {
@@ -36,8 +37,12 @@ export default function Login() {
         onChange={(e) => setPassword(e.target.value)}
       />
       <br />
-      <button onClick={signUpUser}>Signup</button>
-      <button onClick={loginUser}>Login</button>
+      <Link to="/" onClick={signUpUser}>
+        Signup
+      </Link>
+      <Link to="/" onClick={loginUser}>
+        Login
+      </Link>
     </div>
   );
 }

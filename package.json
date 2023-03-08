@@ -1,7 +1,7 @@
 {
-  "name": "instagram-bootcamp",
+  "name": "instagram-bootcamp-1cc60",
   "version": "0.1.0",
-  "homepage": "https://nichhhy.github.io/instagram-bootcamp",
+  "homepage": "https://instagram-bootcamp-1cc60.web.app/",
   "private": true,
   "dependencies": {
     "bootstrap": "^5.2.3",
@@ -9,11 +9,12 @@
     "react": "^18.1.0",
     "react-bootstrap": "^2.7.2",
     "react-dom": "^18.1.0",
+    "react-router-dom": "^6.8.2",
     "react-scripts": "5.0.1"
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -b master -d build",
+    "deploy": "npm run deply",
     "start": " WATCHPACK_POLLING=true react-scripts start",
     "build": "react-scripts build"
   },
